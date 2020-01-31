@@ -20,4 +20,6 @@ jobs:
         run: go get -u github.com/theoden9014/go-testcheck/cmd/testcheck
 
       - name: Lint
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: testcheck ./... | reviewdog -f govet -reporter='github-pr-review'
