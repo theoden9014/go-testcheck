@@ -1,0 +1,23 @@
+name: Go
+on: [push]
+jobs:
+  check-test:
+    name: Check Test
+    runs-on: ubuntu-latest
+    container:
+      image: golang1.13
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v1
+
+      - name: Get dependencies
+        run: go mod download
+
+      - name: Install reviewdog
+        run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+
+      - name: Install go-testcheck
+        run: go get -u github.com/theoden9014/go-testcheck/cmd/testcheck
+
+      - name: Lint
+        run: testcheck ./... | reviewdog -f govet
