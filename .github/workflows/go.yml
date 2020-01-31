@@ -20,4 +20,4 @@ jobs:
         run: go get -u github.com/theoden9014/go-testcheck/cmd/testcheck
 
       - name: Lint
-        run: testcheck ./... | reviewdog -f govet
+        run: testcheck ./... | reviewdog -f govet -reporter='github-pr-review'
